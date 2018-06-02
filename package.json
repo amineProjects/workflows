@@ -4,11 +4,12 @@
   "description": "A project to showcase workflows",
   "repository": {
     "type": "git",
-    "url": "?.git"
+    "url": "https://github.com/amineProjects/workflows.git"
   },
   "author": "amine",
   "devDependencies": {
     "fancy-log": "^1.3.2",
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-coffee": "^3.0.2"
   }
 }
