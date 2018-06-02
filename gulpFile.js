@@ -5,6 +5,7 @@ var gulp = require("gulp"),
     compass=require("gulp-compass"),
     uglify=require("gulp-uglify"),
     gulpif=require("gulp-if"),
+    minifyHtml=require("gulp-minify-html"),
     concat=require("gulp-concat");
     
 var env,
@@ -12,6 +13,7 @@ var env,
     jsSources,
     outputDir,
     sassStyle,
+    htmlSources,
     sassSources;
     
 env= process.env.NODE_ENV || "development"; 
@@ -29,6 +31,7 @@ jsSources=[
     "components/scripts/tagline.js",
     "components/scripts/template.js"
 ];
+htmlSources=["builds/development/*.html"];
 sassSources=["components/sass/style.scss"];
 
 gulp.task("coffee", function(){
@@ -57,9 +60,15 @@ gulp.src(sassSources)
     logs(sassStyle);
 });
 
+gulp.task("html",function(){
+    gulp.src(htmlSources)
+        .pipe(gulpif(env==="production", minifyHtml()))
+        .pipe(gulpif(env==="production",gulp.dest(outputDir)))
+})
 gulp.task("watch",function(){
     gulp.watch(coffeeSources,["coffee"])
     gulp.watch(jsSources,["js"])
     gulp.watch("components/sass/*.scss",["compass"])
+    gulp.watch(htmlSources,["html"])
 })
-gulp.task("default",["coffee", "js", "compass", "watch"]);
+gulp.task("default",["coffee", "js", "compass", "html", "watch"]);
