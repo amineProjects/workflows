@@ -18,7 +18,7 @@ outputDir="builds/development/";
 sassStyle="expanded";
 }else{
 outputDir="builds/production/";
-sassStyle="compressed";
+sassStyle="compact";
 }
 coffeeSources=["components/coffee/tagline.coffee"];
 jsSources=[
@@ -46,11 +46,11 @@ gulp.src(jsSources)
 gulp.task("compass", function(){
 gulp.src(sassSources)
     .pipe(compass({
+        css:outputDir+"css",
     sass:"components/sass",
     image:"images",
     style:sassStyle
     }))
-    .pipe(gulp.dest(outputDir+"css"))
     logs(sassStyle);
 });
 
